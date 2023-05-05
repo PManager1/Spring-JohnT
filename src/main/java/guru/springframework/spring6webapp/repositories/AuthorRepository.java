@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 
 //This will be detected as a Spring data JPA.
 
-
 @Repository
 public interface AuthorRepository extends CrudRepository<Author, Long> {
 
