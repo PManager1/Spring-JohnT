@@ -53,6 +53,7 @@ public class Author {
         this.lastName = lastName;
     }
 
+    //We need this for the Hibernate.
     @Override
     public String toString() {
         return "Author{" +
@@ -63,7 +64,7 @@ public class Author {
                 '}';
     }
 
-    
+    //We need this for the Hibernate.
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -72,6 +73,7 @@ public class Author {
         return getId() != null ? getId().equals(author.getId()) : author.getId() == null;
     }
 
+    //We need this for the Hibernate.
     @Override
     public int hashCode() {
         return getId() != null ? getId().hashCode() : 0;
