@@ -55,7 +55,7 @@ public class BootstrapData implements CommandLineRunner {
         ericSaved.getBooks().add(dddSaved);
         rodSaved.getBooks().add(noEbjSaved);
 
-//        To persist these objects
+//        To persist these objects  V impoortant step. 
         authorRepository.save(ericSaved);
         authorRepository.save(rodSaved);
 
