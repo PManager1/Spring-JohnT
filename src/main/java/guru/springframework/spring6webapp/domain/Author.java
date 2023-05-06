@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -18,7 +19,7 @@ public class Author {
     private String lastName;
 
     @ManyToMany(mappedBy = "authors")
-    private Set<Book> books;  //when dealign with JPA, better to use Set  than List. bc each one is a link item. But list will allow duplicate elements so not good.
+    private Set<Book> books = new HashSet<>();  //when dealign with JPA, better to use Set  than List. bc each one is a link item. But list will allow duplicate elements so not good.
 
 
     public Set<Book> getBooks() {
