@@ -19,8 +19,7 @@ public class Author {
     private String lastName;
 
     @ManyToMany(mappedBy = "authors")
-    private Set<Book> books = new HashSet<>();  //when dealign with JPA, better to use Set  than List. bc each one is a link item. But list will allow duplicate elements so not good.
-
+    private Set<Book> books = new HashSet<>();
 
     public Set<Book> getBooks() {
         return books;

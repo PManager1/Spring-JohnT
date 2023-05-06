@@ -2,8 +2,10 @@ package guru.springframework.spring6webapp.bootstrap;
 
 import guru.springframework.spring6webapp.domain.Author;
 import guru.springframework.spring6webapp.domain.Book;
+import guru.springframework.spring6webapp.domain.Publisher;
 import guru.springframework.spring6webapp.repositories.AuthorRepository;
 import guru.springframework.spring6webapp.repositories.BookRepository;
+import guru.springframework.spring6webapp.repositories.PublisherRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -15,13 +17,15 @@ public class BootstrapData implements CommandLineRunner {
 
     private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
+    private final PublisherRepository publisherRepository;
 
 //Create Constructoro to bring both the respositories innn.
 // Thsi is the only constructor on the repositories.     when spring starts it will automatically autowire inn for theimplentnations
 //    for these , that is provided by the jPa.
-    public BootstrapData(AuthorRepository authorRepository, BookRepository bookRepository) {
+    public BootstrapData(AuthorRepository authorRepository, BookRepository bookRepository, PublisherRepository publisherRepository) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
+        this.publisherRepository = publisherRepository;
     }
 
 
@@ -32,40 +36,49 @@ public class BootstrapData implements CommandLineRunner {
         eric.setLastName("Evans");
 
         Book ddd = new Book();
-        ddd.setTitle("Domani Driven ");
-        ddd.setIsbn("3234343");
+        ddd.setTitle("Domain Driven Design");
+        ddd.setIsbn("123456");
 
-        Author ericSaved = authorRepository.save(eric);   // good prcatice not to take the saved value back.
+        Author ericSaved = authorRepository.save(eric);
         Book dddSaved = bookRepository.save(ddd);
 
-
         Author rod = new Author();
-        eric.setFirstName("Rod");
-        eric.setLastName("Johnson");
+        rod.setFirstName("Rod");
+        rod.setLastName("Johnson");
 
-        Book noEbj = new Book();
-        ddd.setTitle("J2EE Dev without EJB  ");
-        ddd.setIsbn("323434323");
+        Book noEJB = new Book();
+        noEJB.setTitle("J2EE Development without EJB");
+        noEJB.setIsbn("54757585");
 
-        Author rodSaved = authorRepository.save(rod);   // good prcatice not to take the saved value back.
-        Book noEbjSaved = bookRepository.save(noEbj);
-
-//        Now create the associating b/et two
+        Author rodSaved = authorRepository.save(rod);
+        Book noEJBSaved = bookRepository.save(noEJB);
 
         ericSaved.getBooks().add(dddSaved);
-        rodSaved.getBooks().add(noEbjSaved);
+        rodSaved.getBooks().add(noEJBSaved);
 
-//        To persist these objects  V impoortant step. 
+        Publisher publisher = new Publisher();
+        publisher.setPublisherName("My Publisher");
+        publisher.setAddress("123 Main");
+        Publisher savedPublisher = publisherRepository.save(publisher);
+
+        dddSaved.setPublisher(savedPublisher);
+        noEJBSaved.setPublisher(savedPublisher);
+
         authorRepository.save(ericSaved);
         authorRepository.save(rodSaved);
+        bookRepository.save(dddSaved);
+        bookRepository.save(noEJBSaved);
 
         System.out.println("In Bootstrap");
-        System.out.println("Author count" + authorRepository.count());
-        System.out.println("Book  count" + bookRepository.count());
+        System.out.println("Author Count: " + authorRepository.count());
+        System.out.println("Book Count: " + bookRepository.count());
 
 
+
+        System.out.println("Publisher Count: " + publisherRepository.count());
     }
 }
+
 
 
 
